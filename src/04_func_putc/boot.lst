@@ -1,0 +1,74 @@
+     1                                  
+     2                                  BOOT_LOAD   equ     0x7C00
+     3                                  ORG         BOOT_LOAD
+     4                                  
+     5                                  %include    "../include/macro.s"
+     6                              <1> %macro  cdecl 1-*.nolist
+     7                              <1> 
+     8                              <1>     %rep %0 - 1
+     9                              <1>         push    %{-1:-1}
+    10                              <1>         %rotate -1
+    11                              <1>     %endrep
+    12                              <1>     %rotate -1
+    13                              <1>     call    %1
+    14                              <1> 
+    15                              <1>     %if 1 < %0
+    16                              <1>         add     sp, (__BITS__ >> 3) * (%0 - 1)
+    17                              <1>     %endif
+    18                              <1> %endmacro
+     6                                  entry:
+     7 00000000 EB58                        jmp     ipl
+     8                                  
+     9 00000002 90<rep 58h>                 times   90 - ($ - $$) db 0x90
+    10                                  
+    11                                  ipl:
+    12 0000005A FA                          cli
+    13 0000005B B80000                      mov     ax, 0x0000
+    14 0000005E 8ED8                        mov     ds, ax
+    15 00000060 8EC0                        mov     es, ax
+    16 00000062 8ED0                        mov     ss, ax
+    17 00000064 BC007C                      mov     sp, BOOT_LOAD
+    18 00000067 FB                          sti
+    19 00000068 8816[9000]                  mov     [BOOT.DRIVE], dl
+    20                                  
+    21 0000006C 6A58E8210083C402            cdecl   putc, word 'X'
+    22 00000074 6A59E8190083C402            cdecl   putc, word 'Y'
+    23 0000007C 6A5AE8110083C402            cdecl   putc, word 'Z' 
+    24                                  
+    25 00000084 B041                        mov     al, 'A'
+    26 00000086 B40E                        mov     ah, 0x0E
+    27 00000088 BB0000                      mov     bx, 0x0000
+    28 0000008B CD10                        int     0x10
+    29                                  
+    30                                      
+    31 0000008D EBFE                        jmp     $
+    32                                  
+    33 0000008F 00                      ALIGN 2, db 0
+    34                                  BOOT:
+    35 00000090 0000                    .DRIVE:     dw  0
+    36                                  
+    37                                  %include    "../modules/real/putc.s"
+    38                              <1> putc:
+    39 00000092 55                  <1>     push    bp
+    40 00000093 89E5                <1>     mov     bp, sp
+    41                              <1> 
+    42 00000095 50                  <1>     push    ax
+    43 00000096 53                  <1>     push    bx
+    44                              <1> 
+    45 00000097 8A4604              <1>     mov     al, [bp + 4]
+    46 0000009A B40E                <1>     mov     ah, 0x0E
+    47 0000009C BB0000              <1>     mov     bx, 0x0000
+    48 0000009F CD10                <1>     int     0x10
+    49                              <1> 
+    50 000000A1 5B                  <1>     pop     bx
+    51 000000A2 58                  <1>     pop     ax
+    52                              <1> 
+    53 000000A3 89EC                <1>     mov     sp, bp
+    54 000000A5 5D                  <1>     pop     bp
+    55                              <1> 
+    56 000000A6 C3                  <1>     ret
+    38                                  
+    39 000000A7 00<rep 157h>                times   510 - ($ - $$) db 0x00
+    40 000001FE 55AA                        db      0x55, 0xAA
+    41                                  
+    42                                      
