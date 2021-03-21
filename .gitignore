@@ -1,0 +1,5 @@
+env/
+tools/
+.img
+.lock
+.lst
