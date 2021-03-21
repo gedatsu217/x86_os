@@ -1,5 +1,5 @@
 env/
 tools/
-.img
-.lock
-.lst
+*.img
+*.lock
+*.lst
