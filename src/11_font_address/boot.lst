@@ -3,6 +3,7 @@
      3                              <1> BOOT_SIZE   equ     (1024 * 8)
      4                              <1> SECT_SIZE   equ     (512)
      5                              <1> BOOT_SECT   equ     (BOOT_SIZE / SECT_SIZE)
+     6                              <1> E820_RECORD_SIZE    equ     20
      2                                  %include    "../include/macro.s"
      3                              <1> %macro  cdecl 1-*.nolist
      4                              <1> 
@@ -429,10 +430,10 @@
    109 000003F4 337264207374616765-     .s0 db  "3rd stage...", 0x0A, 0x0D, 0
    109 000003FD 2E2E2E0A0D00       
    110                                  
-   111 00000403 20466F6E7420416464-     .s1: db  " Font Address="
+   111 00000403 20466F6E7420416464-     .s1 db  " Font Address="
    111 0000040C 726573733D         
-   112 00000411 5A5A5A5A3A              .p1: db  "ZZZZ:"
-   113 00000416 5A5A5A5A0A0D00          .p2: db  "ZZZZ", 0x0A, 0x0D, 0
+   112 00000411 5A5A5A5A3A              .p1 db  "ZZZZ:"
+   113 00000416 5A5A5A5A0A0D00          .p2 db  "ZZZZ", 0x0A, 0x0D, 0
    114 0000041D 0A0D00                      db  0x0A, 0x0D, 0
    115                                  
    116                                  

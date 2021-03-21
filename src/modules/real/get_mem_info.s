@@ -125,9 +125,9 @@ put_mem_info:
 
 .s1 db  " "
 .p2 db  "ZZZZZZZZ_"
-.p3 db  "ZZZZZZZZ"
+.p3 db  "ZZZZZZZZ "
 .p4 db  "ZZZZZZZZ_"
-.p5 db  "ZZZZZZZZ"
+.p5 db  "ZZZZZZZZ "
 .p6 db  "ZZZZZZZZ", 0
 
 .s4 db  " (Unknown)", 0x0A, 0x0D, 0
@@ -137,4 +137,4 @@ put_mem_info:
 .s8 db  " (ACPI NVS)", 0x0A, 0x0D, 0
 .s9 db  " (bad memory)", 0x0A, 0x0D, 0
 
-.t0 db  .s4, .s5, .s6, .s7, .s8, .s9, .s4, .s4
+.t0 dw  .s4, .s5, .s6, .s7, .s8, .s9, .s4, .s4
