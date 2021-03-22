@@ -3,3 +3,4 @@ tools/
 *.img
 *.lock
 *.lst
+*.bin
