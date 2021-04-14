@@ -62,7 +62,7 @@ vram_font_copy:
 
     test    bl, al
     setz    dl
-    setz    dl
+    dec    dl
 
     cld
 
@@ -74,8 +74,7 @@ vram_font_copy:
 
     and     al, dl
 
-    test    ebx, 0x0010
-    and     al, dl
+
 
     test    ebx, 0x0010
     jz      .11F
