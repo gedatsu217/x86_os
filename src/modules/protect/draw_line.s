@@ -10,6 +10,13 @@ draw_line:
     push    dword   0
     push    dword   0
 
+    push    eax
+    push    ebx
+    push    ecx
+    push    edx
+    push    esi
+    push    edi
+
     mov     eax, [ebp + 8]
     mov     ebx, [ebp + 16]
     sub     ebx, eax
