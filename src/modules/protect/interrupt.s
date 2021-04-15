@@ -32,6 +32,7 @@ init_int:
     ret
 
 int_stop:
+    sti
     cdecl   draw_str, 25, 15, 0x060F, eax
 
     mov     eax, [esp + 0]
