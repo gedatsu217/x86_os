@@ -9,6 +9,10 @@ draw_char:
     push    esi
     push    edi
 
+%ifdef  USE_TEST_AND_SET
+    cdecl   test_and_set, IN_USE
+%endif
+
 
     movzx   esi, byte [ebp + 20]
     shl     esi, 4
@@ -36,6 +40,10 @@ draw_char:
     cdecl   vga_set_write_plane, 0x01
     cdecl   vram_font_copy, esi, edi, 0x01, ebx
 
+%ifdef  USE_TEST_AND_SET
+    mov     [IN_USE], dword 0
+%endif
+
 
     pop     edi
     pop     esi
@@ -49,3 +57,7 @@ draw_char:
 
     ret
 
+%ifdef  USE_TEST_AND_SET
+ALIGN 4, db 0
+IN_USE:  dd 0
+%endif
