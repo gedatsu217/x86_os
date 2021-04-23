@@ -20,7 +20,7 @@ int_timer:
 
     jmp     SS_TASK_0:0
     jmp     .10E
-.11L
+.11L:
     jmp     SS_TASK_1:0
     jmp     .10E
 
@@ -32,7 +32,6 @@ int_timer:
     jmp     SS_TASK_3:0
     jmp     .10E
 .10E:
-
     pop     es
     pop     ds
     popad
@@ -40,4 +39,4 @@ int_timer:
     iret
 
 ALIGN 4, db 0
-TIMER_COUNT:    dq  0
+TIMER_COUNT:    dd  0
